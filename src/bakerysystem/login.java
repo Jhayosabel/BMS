@@ -15,6 +15,8 @@ import admin.usersForm;
 import config.Session;
 import config.passwordHasher;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.time.LocalDateTime;
 import user.userDashboard;
 
 /**
@@ -84,6 +86,7 @@ public class login extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         user = new javax.swing.JTextField();
+        Forgetpass = new javax.swing.JLabel();
         pass = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -115,6 +118,16 @@ public class login extends javax.swing.JFrame {
         });
         jPanel3.add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 231, 40));
 
+        Forgetpass.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        Forgetpass.setForeground(new java.awt.Color(51, 51, 51));
+        Forgetpass.setText("Forget Password?");
+        Forgetpass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ForgetpassMouseClicked(evt);
+            }
+        });
+        jPanel3.add(Forgetpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 90, 10));
+
         pass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passActionPerformed(evt);
@@ -143,7 +156,7 @@ public class login extends javax.swing.JFrame {
                 loginActionPerformed(evt);
             }
         });
-        jPanel3.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, -1, -1));
+        jPanel3.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, -1, -1));
 
         jLabel4.setText("New User? Click Here to Register  ");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -211,6 +224,15 @@ public class login extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(null, "Login Failed");
         }  
+       dbConnector con = new dbConnector();
+       Connection cn = con.getConnection();
+       
+       Session sess = Session.getInstance();
+       String ustatus = sess.getUstatus();
+       int uid = sess.getUid();
+       
+       String action = "User Logged in with ID" + uid;
+       con.insertData("INSERT INTO logs (uid, action, date_time) VALUES ('"+uid+"', '"+action+"', '"+LocalDateTime.now()+"')");
         
     }//GEN-LAST:event_loginMouseClicked
 
@@ -224,6 +246,12 @@ public class login extends javax.swing.JFrame {
              this.dispose();
                             
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void ForgetpassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ForgetpassMouseClicked
+     Forgetpass fp =new Forgetpass();
+             fp.setVisible(true);
+             this.dispose();
+    }//GEN-LAST:event_ForgetpassMouseClicked
 
     /**
      * @param args the command line arguments
@@ -261,6 +289,7 @@ public class login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Forgetpass;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

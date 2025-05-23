@@ -5,21 +5,21 @@
  */
 package config;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author mypc
+ * @author Vilma Gaming
  */
 public class dbConnector {
     
     private Connection connect;
+    private Connection getConnection;
+    
+    public Connection getConnection() {
+        return null;
+    }
      
     public dbConnector(){
             try{

@@ -4,6 +4,10 @@ package config;
 public class Session {
     
     private static Session intance;
+
+    public static Session getInstance() {
+        return null;
+    }
     private int uid;
     private String uname; 
     private String email; 
